@@ -83,12 +83,8 @@ public class Main extends JavaPlugin implements Listener{
 		getConfig().addDefault("msg.kickmsg", "![kicked] Has kicked by ![kicker] reason: ![kickreason].");
 		getConfig().addDefault("msg.forkickedmsg", "![kicker] Has kicked you, reason: ![kickreason].");
 
-		//getConfig().addDefault("msg.modifyworld", "You can't modify this world.");	
-		
 		getConfig().addDefault("bannedwordsoptions.bannedworddetectmsg", "![player] don't use banned word.");//bannedwords
 		getConfig().addDefault("bannedwordsoptions.setbadmsg", "> Is a bad player.");//bannedwords
- //		getConfig().addDefault("bannedwordsoptions.warnplayer", true);//bannedwords
-//		getConfig().addDefault("bannedwordsoptions.maxwarns", 10);//bannedwords
 		
 		getConfig().addDefault("bannedblocks", "");//bannedwords
 		getConfig().addDefault("bannedwords", "");
@@ -105,7 +101,6 @@ public class Main extends JavaPlugin implements Listener{
 		new Runner().start();
 		Bukkit.getServer().getPluginManager().registerEvents(this, this);
 	    PluginDescriptionFile pdfFile = this.getDescription();
-	    //System.out.println("Major: "+check.majorVersion("2.5.9", "2.5.7"));
 		System.out.println("[UtilityPlugin] Plugin Enabled");
 		System.out.println("[UtilityPlugin] Converting Config Settings");
 		System.out.println("[UtilityPlugin] Converted "+ConvertConfigFile()+" Lines");
@@ -198,11 +193,6 @@ public class Main extends JavaPlugin implements Listener{
 				kickHash.put(Bukkit.getPlayer(k[1]), event.getPlayer());
 	    	}
 	    }
-/*		if(BadUtils.itIsBadWord(event.getMessage().replaceFirst("/",""), getConfig().getStringList("bannedwords"))){
-			event.getPlayer().sendMessage(formString(getConfig().getString("bannedwordsoptions.bannedworddetectmsg"), event.getPlayer(), event.getPlayer().getWorld(), null, null, null));
-			event.setMessage(getConfig().getString("bannedwordsoptions.setbadmsg"));
-			event.setCancelled(true);
-		}*/	    
 	}	
 	@EventHandler
 	public void PlayerKick(PlayerKickEvent pke){
@@ -237,10 +227,7 @@ public class Main extends JavaPlugin implements Listener{
 				}else{
 					if(!args[0].isEmpty() && args[0].equalsIgnoreCase("reload"))
 					{
-						//reset.ResetPlugin(this);
 						this.reloadConfig();
-						//Bukkit.getServer().getPluginManager().disablePlugin(this);
-						//Bukkit.getServer().getPluginManager().enablePlugin(this);
 						player.sendMessage(ChatColor.GOLD+"[UtilityPlugin] "+ChatColor.RED+"UtilityPlugin reloaded!");						
 					}
 					if(!args[0].isEmpty() && args[0].equalsIgnoreCase("showbannedwords"))
@@ -385,7 +372,6 @@ public class Main extends JavaPlugin implements Listener{
 						}							
 
 					}
-//*************************************
 					if(!args[0].isEmpty() && args[0].equalsIgnoreCase("bancmd")){
 						if(args.length > 1){
 							if(!args[1].isEmpty() && args[1] != null){
@@ -422,12 +408,6 @@ public class Main extends JavaPlugin implements Listener{
 		if(c instanceof String && isInteger((String)c)){
 			Material thisM = Material.getMaterial(Integer.valueOf((String) c));
 			return thisM;
-/*			for(Material x : Material.values()){
-				//Material thisM = Material.values()[Integer.parseInt((String) c)];				
-				if(thisM == x){
-					return thisM;
-				}
-			}*/
 		}else if(c instanceof String){
 			return Material.getMaterial((String) c);									
 		}

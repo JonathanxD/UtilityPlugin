@@ -24,7 +24,6 @@ public class BadUtils {
     	if(w.length() >= 4){
     		maxPoints -= ignoreP; 
     	}
-    	//String finish = null;
     	String b;
     	for(int x=0; x < badWords.size(); ++x){
     		b = badWords.get(x);
@@ -43,11 +42,7 @@ public class BadUtils {
     			if(isEChar(c))continue;
     			if(z[ze] == c){
     				++ points;
-    			}/*else
-    			if(points >= 1){
-    				++ze;
-    				continue;
-    			}*/
+    			}
     	    	if(points >= maxPoints){
     	    		return true;
     	    	}
@@ -88,13 +83,10 @@ public class BadUtils {
 		x = x.replace('\5', ' ');
 		x = x.replace('\6', ' ');
 		x = x.replace('\7', ' ');
-		//x.replace("\8", " ");
-		//x.replace("\9", " ");
 		return x;
 	}	
 	private static String convertStr(String c) {
     	
-		// TODO Stub de método gerado automaticamente
 		for(int x=0; x<10;++x){
 			c = c.replace(String.valueOf(x), String.valueOf(NLL.get(x)).toLowerCase());
 		}
