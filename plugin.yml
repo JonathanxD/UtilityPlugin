@@ -1,0 +1,9 @@
+name: UtilityPlugin
+author: _Jonathan_xD
+version: 7.0
+description: Plugin Many Utilities.
+main: me._Jonathan_xD.UtilityPlugin.Main
+commands:
+  ulp:
+    description: ulp!
+    aliases: ultilityplugin
