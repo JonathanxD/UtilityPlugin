@@ -535,7 +535,6 @@ public class Main extends JavaPlugin implements Listener{
     	}
 	}
 	public boolean SetBannedCmd(String cmd) {
-    	//FWriter.Write("utili", toWrite);
 		List<String> list = this.getConfig().getStringList("bannedcmds");
 		if(list.contains(cmd))return false;
     	list.add(cmd);
@@ -580,7 +579,6 @@ public class Main extends JavaPlugin implements Listener{
     			x=0;
     		}
     	}
-    	//list.remove(r);
     	this.getConfig().set("bannedwords", list);
     	saveConfig();
     	return true;
