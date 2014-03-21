@@ -83,8 +83,8 @@ public class Main extends JavaPlugin implements Listener{
 		getConfig().addDefault("msg.kickmsg", "![kicked] Has kicked by ![kicker] reason: ![kickreason].");
 		getConfig().addDefault("msg.forkickedmsg", "![kicker] Has kicked you, reason: ![kickreason].");
 
-		getConfig().addDefault("bannedwordsoptions.bannedworddetectmsg", "![player] don't use banned word.");//bannedwords
-		getConfig().addDefault("bannedwordsoptions.setbadmsg", "> Is a bad player.");//bannedwords
+		getConfig().addDefault("bannedwordsoptions.bannedworddetectmsg", "![player] don't use banned word.");
+		getConfig().addDefault("bannedwordsoptions.setbadmsg", "> Is a bad player.");
 		
 		getConfig().addDefault("bannedblocks", "");//bannedwords
 		getConfig().addDefault("bannedwords", "");
@@ -435,7 +435,6 @@ public class Main extends JavaPlugin implements Listener{
 			player.sendMessage(ChatColor.YELLOW+"[UtilityPlugin] "+ChatColor.RED+bl.replace("_"," ")+" is banned.");			
 		}
        	if(getConfig().getString("debugblocks").equals("true")){
-       		//Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "say placed block (Block to String): "+event.getBlock().toString());
        		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "say placed block (Block type to string): "+event.getBlock().getType().toString());
        		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "say placed block (Block Data): "+event.getBlock().getData());
        	}       	
@@ -516,7 +515,6 @@ public class Main extends JavaPlugin implements Listener{
     				event.setCancelled(true);
     			}
     		}
-    		// do stuff
     	}
     }
     
@@ -557,7 +555,6 @@ public class Main extends JavaPlugin implements Listener{
         		x = 0;
     		}
     	}
-    	//list.remove(r);
     	this.getConfig().set("bannedcmds", list);
     	saveConfig();
     	return true;
@@ -621,7 +618,6 @@ public class Main extends JavaPlugin implements Listener{
         return false;
 	}
     public boolean SetBanned(Material m, int meta, String world, Player p){
-    	//FWriter.Write("utili", toWrite);
     	if(ItIsBanned(m, meta, p, world, false)){
     		return false;
     	}
@@ -662,7 +658,6 @@ public class Main extends JavaPlugin implements Listener{
     			x=0;
     		}
     	}
-    	//list.remove(r);
     	this.getConfig().set("bannedblocks", list);
     	saveConfig();
     	return true;
@@ -684,7 +679,6 @@ public class Main extends JavaPlugin implements Listener{
     		}
     		if(k != null){
     			s = s.replace("![kicker]", k.getName());    			
-    			//s = s.replace("![world]", String.valueOf(w.getTime()));    			    			    			
     		}else{
     			s = s.replace("![kicker]", "Console");    			    			
     		}
