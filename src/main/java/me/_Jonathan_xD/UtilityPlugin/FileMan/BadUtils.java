@@ -3,15 +3,17 @@ package me._Jonathan_xD.UtilityPlugin.FileMan;
 import java.util.HashMap;
 import java.util.List;
 
+import me._Jonathan_xD.UtilityPlugin.cr.ChatResult;
+
 import org.bukkit.entity.Player;
 
 public class BadUtils {
 
 	public static HashMap<Integer, Character> NLL = new HashMap<Integer, Character>(); 
-    public static int ignoreP = 4; 
-    public static boolean itIsBadWord(Player p, String w, List<String> badWords){
+    public static int ignoreP = 1; 
+    public static ChatResult itIsBadWord(Player p, String w, List<String> badWords, boolean detectSpammers, int maxCharRepeat){
 		if(p != null && (p.isOp() || p.hasPermission("UtilityPlugin.speakbanword."+w))){
-			return false;
+			return ChatResult.No;
 		}    	
     	w = w.toLowerCase();
     	w = w.replaceAll("[^a-z0-9]", "");
@@ -25,11 +27,27 @@ public class BadUtils {
     		maxPoints -= ignoreP; 
     	}
     	String b;
+    	
+		int spammerPoints = 0;
+		Character lastChar = null;
+    	for(int za = 0; za < s.length; ++ za){
+    		char c = s[za];
+			if(lastChar == null || c != lastChar){
+				lastChar = c;
+			}else if(c == lastChar){
+				++spammerPoints;
+			}
+			if(spammerPoints >= maxCharRepeat -1){
+				return ChatResult.Spam;
+			}    		
+    	}
+    	
     	for(int x=0; x < badWords.size(); ++x){
     		b = badWords.get(x);
+    		b = b.toLowerCase();
         	if(w.indexOf(b) != -1)
         	{
-        		return true;
+        		return ChatResult.BannedWord;
         	}
     		char z[] = b.toCharArray();
     		char c;
@@ -40,15 +58,16 @@ public class BadUtils {
             		c = convertChar(c);
             	}        	
     			if(isEChar(c))continue;
+    			
     			if(z[ze] == c){
     				++ points;
     			}
     	    	if(points >= maxPoints){
-    	    		return true;
+    	    		return ChatResult.BannedWord;
     	    	}
         	}    		
     	}
-    	return false;
+    	return ChatResult.No;
     }
     public static char[] Alfabeto = {
     	'a','b','c','d','e','f','g','h','i','j','k','l','m','n',

@@ -1,6 +1,6 @@
 name: UtilityPlugin
 author: _Jonathan_xD
-version: 7.0
+version: 8.0
 description: Plugin Many Utilities.
 main: me._Jonathan_xD.UtilityPlugin.Main
 commands:

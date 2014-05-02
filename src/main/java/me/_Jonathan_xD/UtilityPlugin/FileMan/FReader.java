@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
  
 public class FReader {
+        //ArrayList<String> SpaceList = new ArrayList<String>();
     public static String[] SpaceList = {
         "\0", "\1", "\2", "\3", " "
     };
