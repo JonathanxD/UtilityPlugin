@@ -4,6 +4,7 @@
 *.jar
 *.war
 *.ear
+*.travis.yml
 /.project
 *.md
 /.gitignore
