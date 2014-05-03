@@ -14,28 +14,18 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-/**
- * This class is a barebones example of how to use the BukkitDev ServerMods API to check for file updates.
- * <br>
- * See the README file for further information of use.
- */
-//72492/
 public class Update {
 
-    // The project's unique ID
     private final int projectID;
 
-    // An optional API key to use, will be null if not submitted
     private final String apiKey;
 
-    // Keys for extracting file information from JSON response
     private static final String API_NAME_VALUE = "name";
     private static final String API_LINK_VALUE = "downloadUrl";
     private static final String API_RELEASE_TYPE_VALUE = "releaseType";
     private static final String API_FILE_NAME_VALUE = "fileName";
     private static final String API_GAME_VERSION_VALUE = "gameVersion";
 
-    // Static information for querying the API
     private static final String API_QUERY = "/servermods/files?projectIds=";
     private static final String API_HOST = "https://api.curseforge.com";
 
@@ -127,12 +117,10 @@ public class Update {
                     }            		
             	}
             } else {
-                //System.out.println("There are no files for this project");
+
             }
         } catch (IOException e) {
-            // There was an error reading the query
 
-            //e.printStackTrace();
         	System.out.println("[UtilityPlugin] Error on check updates: "+e.toString());
             return;
         }
@@ -143,7 +131,7 @@ public class Update {
 		}else{
 			return bukkitVersion.substring(0, IndexOfIn(bukkitVersion, "-"));
 		}
-		//return null;
+
 	}
 
 	private String verByFileName(String name, String separator, String fileName) {    	
@@ -162,7 +150,7 @@ public class Update {
     	
     	return -1;
     }
-	//"0.2.1"  "0.2.2"
+
     public int majorVersion(String a, String b){
     	a = Util.lettersToNumber(a);
     	b = Util.lettersToNumber(b);
@@ -194,7 +182,7 @@ public class Update {
     public static int IndexOfIn(String a, String x){
         for(int k=a.length();k!=-1;--k){
             if(a.indexOf(x, k) != -1){
-                return k;//a.substring(k+1);
+                return k;
             }
         }
         return -1;
