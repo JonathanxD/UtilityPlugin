@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import me._Jonathan_xD.UtilityPlugin.FileMan.Util;
 
@@ -14,18 +16,28 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
+/**
+ * This class is a barebones example of how to use the BukkitDev ServerMods API to check for file updates.
+ * <br>
+ * See the README file for further information of use.
+ */
+//72492/
 public class Update {
 
+    // The project's unique ID
     private final int projectID;
 
+    // An optional API key to use, will be null if not submitted
     private final String apiKey;
 
+    // Keys for extracting file information from JSON response
     private static final String API_NAME_VALUE = "name";
     private static final String API_LINK_VALUE = "downloadUrl";
     private static final String API_RELEASE_TYPE_VALUE = "releaseType";
     private static final String API_FILE_NAME_VALUE = "fileName";
     private static final String API_GAME_VERSION_VALUE = "gameVersion";
 
+    // Static information for querying the API
     private static final String API_QUERY = "/servermods/files?projectIds=";
     private static final String API_HOST = "https://api.curseforge.com";
 
@@ -101,41 +113,49 @@ public class Update {
 
                 String versionGameVersion = (String) latest.get(API_GAME_VERSION_VALUE);
 
-                int major = majorVersion(ver, verByFileName("UtilityPlugin", "_", versionName));
-            	if(formVersion(versionGameVersion).equalsIgnoreCase(formVersion(Bukkit.getBukkitVersion())))
+                int major = majorVersion(ver, verByFileName(versionName));
+            	if(versionGameVersion.equalsIgnoreCase(getBukkitVersion()))
             	{
                     if((major == 1) || (major == 2) && supType(versionType,type) == 0){
                         System.out.println(
                                 "[UtilityPlugin] Have Updates, That plugin version: "+ver+" ,The latest version of " + versionFileName +
-                                        " is " + verByFileName("UtilityPlugin", "_", versionName) +
+                                        " is " + verByFileName(versionName) +
                                         ", a " + versionType.toUpperCase() +
                                         " for " + versionGameVersion +
                                         ", available at: " + versionLink
                         );                	
                     }else if(major == 0){
-                        System.out.println("[UtilityPlugin] Oh, that plugin version is newer than the latest posted, That's bug?, your version " + ver + " lastest posted: " +verByFileName("UtilityPlugin", "_", versionName)+".");
+                        System.out.println("[UtilityPlugin] Oh, that plugin version is newer than the latest posted, That's bug?, your version " + ver + " lastest posted: " +verByFileName(versionName)+".");
                     }            		
             	}
             } else {
-
+                //System.out.println("There are no files for this project");
             }
         } catch (IOException e) {
-
         	System.out.println("[UtilityPlugin] Error on check updates: "+e.toString());
             return;
         }
     }
-    public static String formVersion(String bukkitVersion) {    	
-		if(bukkitVersion.indexOf(" ") != -1){			
-			return bukkitVersion.substring((bukkitVersion.indexOf(" ")+1), IndexOfIn(bukkitVersion, "-"));				
-		}else{
-			return bukkitVersion.substring(0, IndexOfIn(bukkitVersion, "-"));
+    
+	public static String getBukkitVersion() {
+		String version = Bukkit.getVersion();
+		Pattern pattern = Pattern.compile("(\\((MC: )([0-9]+)(.)([0-9]+)(.)([0-9]+)\\))");
+		Matcher matcher = pattern.matcher(version);
+		StringBuilder sb = new StringBuilder();		
+		if (matcher.find()) {
+			for(int i = 3; i < 8; ++i)sb.append(matcher.group(i));
 		}
-
+		return sb.toString();
 	}
 
-	private String verByFileName(String name, String separator, String fileName) {    	
-		return fileName.replace(name+separator, "");
+	private String verByFileName(String fileName) {		
+		char[] separators = {'_', '-'};	
+		for(char c : separators){
+			if(fileName.indexOf(String.valueOf(c)) != -1){
+				return fileName.substring(fileName.indexOf(c)+1);
+			}
+		}
+		return null;
 	}
     public static int supType(String type1, String type2){
     	if(type1.equalsIgnoreCase(type2))return 0;
@@ -150,7 +170,6 @@ public class Update {
     	
     	return -1;
     }
-
     public int majorVersion(String a, String b){
     	a = Util.lettersToNumber(a);
     	b = Util.lettersToNumber(b);
@@ -181,7 +200,9 @@ public class Update {
     }
     public static int IndexOfIn(String a, String x){
         for(int k=a.length();k!=-1;--k){
-            if(a.indexOf(x, k) != -1)return k;
+            if(a.indexOf(x, k) != -1){
+                return k;//a.substring(k+1);
+            }
         }
         return -1;
     }

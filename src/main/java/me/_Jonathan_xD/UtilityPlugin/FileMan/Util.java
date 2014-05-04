@@ -49,6 +49,8 @@ public class Util {
     	'j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 	public static String lettersToNumber(String string) {
 		string = string.replace("-", ".");
+		string = string.replace("_", ".");
+		string = string.replace("*", "9");
 		StringBuilder sb = new StringBuilder();
 		for(char c : string.toCharArray()){
 			for(int x=0;x<letters.length;++x){

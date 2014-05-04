@@ -55,7 +55,7 @@ public class Main extends JavaPlugin{
             try  
             {  
         	    if(getConfig().getBoolean("checkupdates")){
-        	    	Update check = new Update(72492, null, "8.0", "Release", "1.7.2");
+        	    	Update check = new Update(72492, null, "8.0*", "Release", "1.7.2");
         	    }                  
             }  
               
